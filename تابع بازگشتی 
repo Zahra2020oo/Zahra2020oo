@@ -1,0 +1,17 @@
+#include <iostream>
+#include <string>
+using namespace std;
+string reverse_string(string s) {
+  if (s.empty()) {
+    return "";
+  } else {
+    return reverse_string(s.substr(1)) + s[0];
+  }
+}
+
+int main() {
+  string str = "hello";
+  string reversed_str = reverse_string(str);
+  cout << reversed_str << endl; 
+  return 0;
+}
