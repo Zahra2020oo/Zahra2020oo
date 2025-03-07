@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+using namespace s
+
+const int MAX_CONTACTS = 100;
+const int MAX_MESSAGES = 100;
+
+struct Contact {
+    string name;
+    string phone_number;
+    string email;
+};
+
+struct Message {
+    string sender;
+    string receiver;
+    string content;
+};
+
+Contact contacts[MAX_CONTACTS];
+int num_contacts = 0;
+Message messages[MAX_MESSAGES];
+int num_messages = 0;
+
+int main() {
+    addContact({"John Doe", "123-456-7890", "john.doe@example.com"});
+    addContact({"Jane Smith", "987-654-3210", "jane.smith@example.com"});
+
+    sendMessage({"John Doe", "Jane Smith", "Hello, how are you?"});
+
+    displayMessages();
+
+    return 0;
+}
