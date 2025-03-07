@@ -1,0 +1,61 @@
+#include <iostream>
+
+using namespace std;
+
+struct Student {
+    int studentID;
+    float GPA;
+};
+
+int main() {
+    int n;
+
+    cout << "Enter a number of students: ";
+    cin >> n;
+
+    Student* students = new Student[n];
+
+    for (int i = 0; i < n; i++) {
+        cout << "\n Enter information for students:\n " << i + 1 << endl;
+        cout<<"studentID:";
+        cin >> students[i].studentID;
+        cout<<"GPA:";
+        cin>> students[i].GPA;
+    }
+
+    float totalGPA = 0;
+    for (int i = 0; i < n; i++) {
+        totalGPA += students[i].GPA;
+    }
+    float averageGPA = totalGPA / n;
+    float minGPA = students[0].GPA;
+    float maxGPA = students[0].GPA;
+    int minID = students[0].studentID;
+    int maxID = students[0].studentID;
+
+    for (int i = 1; i < n; i++) {
+        if (students[i].GPA < minGPA) {
+            minGPA = students[i].GPA;
+            minID = students[i].studentID;
+        }
+        if (students[i].GPA > maxGPA) {
+            maxGPA = students[i].GPA;
+            maxID = students[i].studentID;
+        }
+    }
+
+    cout << "number of students with higher than average GPA:" << averageGPA <<endl;
+    for (int i = 0; i < n; i++) {
+        if (students[i].GPA > averageGPA) {
+            cout << students[i].studentID << " ";
+        }
+    }
+    cout << endl;
+
+    cout << "Minimum GPA: " << minGPA << " studentID: " << minID << endl;
+    cout << "Maximum GPA: " << maxGPA << " studentID: " << maxID << endl;
+
+    delete[] students;
+
+    return 0;
+}
