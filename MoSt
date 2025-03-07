@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+struct Rectangle {
+    int x, y;
+    int length, width;
+
+    void getRectangle() {
+        cout << "Enter coordinates of rectangle (x, y): ";
+        cin >> x >> y;
+        cout << "Enter length: ";
+        cin >> length;
+        cout << "Enter width: ";
+        cin >> width;
+    }
+
+    void display() const {
+        cout << "Rectangle coordinates: (" << x << ", " << y << ")\n";
+        for (int i = 0; i <= y + width; ++i) {
+            for (int j = 0; j <= x + length; ++j) {
+                if (i == y && j == x) {
+                    cout << "+";
+                } else if (i == y && j > x && j <= x + length) {
+                    cout << "-";
+                } else if (i > y && i <= y + width && j == x) {
+                    cout << "|";
+                } else if (i > y && i <= y + width && j == x + length) {
+                    cout << "|";
+                } else if (i == y + width && j > x && j <= x + length) {
+                    cout << "-";
+                } else {
+                    cout << " ";
+                }
+            }
+            cout << "\n";
+        }
+        cout << "Length: " << length << ", Width: " << width << "\n";
+    }
+
+    int area() const {
+        return length * width;
+    }
+
+    int perimeter() const {
+        return 2 * (length + width);
+    }
+};
+
+int main() {
+    Rectangle myRectangle;
+    myRectangle.getRectangle();
+    myRectangle.display();
+    cout << "Area: " << myRectangle.area() << "\n";
+    cout << "Perimeter: " << myRectangle.perimeter() << "\n";
+    return 0;
+}
