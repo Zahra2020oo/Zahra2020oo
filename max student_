@@ -1,0 +1,38 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+    ifstream inputFile("students1000.txt");
+
+    if (!inputFile.is_open()) {
+        cout << "Error: Unable to open file." << endl;
+         return 1;
+    }
+
+    string studentName;
+    int grade1, grade2, grade3, grade4;
+    double studentAverage, totalAverage = 0.0;
+    int studentCount = 0;
+
+    cout << fixed << setprecision(2);
+
+    while (inputFile >> studentName >> grade1 >> grade2 >> grade3 >> grade4) {
+        studentAverage = (grade1 + grade2 + grade3 + grade4) / 4.0;
+        cout << studentName << " Average: " << studentAverage << endl;
+        totalAverage += studentAverage;
+        studentCount++;
+    }
+
+    if (studentCount > 0) {
+        cout << "Total Average: " << totalAverage / studentCount << endl;
+    } else {
+        cout << "No student data found in the file." << endl;
+    }
+
+    inputFile.close();
+    return 0;
+}
