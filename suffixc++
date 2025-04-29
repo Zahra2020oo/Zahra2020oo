@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+using namespace  std;
+
+class myCar {
+public:
+    myCar(string color, int year, int speed) : carColor(color), carYear(year), carSpeed(speed) {}
+
+    myCar operator++(int) { // عملگر ++ پسوندی
+        myCar temp = *this; // ایجاد یک کپی از وضعیت فعلی شیء
+        carSpeed++;         // افزایش سرعت شیء اصلی
+        return temp;        // برگرداندن کپی وضعیت قبلی
+    }
+
+    void displayInfo() const {
+        cout << "رنگ ماشین: " << carColor <<endl;
+        cout << "سال ساخت: " << carYear <<endl;
+        cout << "سرعت ماشین: " << carSpeed     <<endl;
+    }
+
+private:
+    string carColor;
+    int carYear;
+    int carSpeed;
+};
+
+int main() {
+    myCar myFirstCar("آبی", 2024, 50);
+    myCar previousState = myFirstCar++; // استفاده از عملگر ++ پسوندی
+
+    cout << "وضعیت قبل از افزایش:" <<endl;
+    previousState.displayInfo();
+
+    cout << "\nوضعیت بعد از افزایش:" << endl;
+    myFirstCar.displayInfo();
+
+    return 0;
+}
