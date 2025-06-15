@@ -1,0 +1,158 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Complex {
+private:
+    float real;
+    float imag;
+
+public:
+
+    Complex(float r = 0, float i = 0) : real(r), imag(i) {}
+
+    Complex operator+(const Complex& obj) const {
+        return Complex(real + obj.real, imag + obj.imag);
+    }
+
+    Complex operator-(const Complex& obj) const {
+        return Complex(real - obj.real, imag - obj.imag);
+    }
+
+    Complex operator*(const Complex& obj) const {
+        return Complex(
+            real * obj.real - imag * obj.imag,
+            real * obj.imag + imag * obj.real
+        );
+    }
+
+    Complex operator/(const Complex& obj) const {
+        float denominator = obj.real * obj.real + obj.imag * obj.imag;
+        if (denominator == 0) {
+            cerr << "Error: Division by zero!" << endl;
+            return Complex();
+        }
+        return Complex(
+            (real * obj.real + imag * obj.imag) / denominator,
+            (imag * obj.real - real * obj.imag) / denominator
+        );
+    }
+
+    Complex operator*(float scalar) const {
+        return Complex(real * scalar, imag * scalar);
+    }
+
+    Complex operator/(float scalar) const {
+        if (scalar == 0) {
+            cerr << "Error: Division by zero!" << endl;
+            return Complex();
+        }
+        return Complex(real / scalar, imag / scalar);
+    }
+
+    Complex& operator+=(const Complex& obj) {
+        real += obj.real;
+        imag += obj.imag;
+        return *this;
+    }
+
+    Complex& operator-=(const Complex& obj) {
+        real -= obj.real;
+        imag -= obj.imag;
+        return *this;
+    }
+
+    Complex& operator*=(const Complex& obj) {
+        *this = *this * obj;
+        return *this;
+    }
+
+    Complex& operator/=(const Complex& obj) {
+        *this = *this / obj;
+        return *this;
+    }
+
+    Complex operator-() const {
+        return Complex(-real, -imag);
+    }
+
+    bool operator==(const Complex& obj) const {
+        return real == obj.real && imag == obj.imag;
+    }
+
+    bool operator!=(const Complex& obj) const {
+        return !(*this == obj);
+    }
+
+    float magnitude() const {
+        return sqrt(real * real + imag * imag);
+    }
+
+    Complex conjugate() const {
+        return Complex(real, -imag);
+    }
+
+    // Friend functions for I/O and scalar multiplication
+    friend ostream& operator<<(ostream& out, const Complex& c);
+    friend istream& operator>>(istream& in, Complex& c);
+    friend Complex operator*(float scalar, const Complex& c);
+};
+
+ostream& operator<<(ostream& out, const Complex& c) {
+    out << c.real;
+    if (c.imag >= 0)
+        out << " + " << c.imag << "i";
+    else
+        out << " - " << -c.imag << "i";
+    return out;
+}
+
+istream& operator>>(istream& in, Complex& c) {
+    cout << "Enter real part: ";
+    in >> c.real;
+    cout << "Enter imaginary part: ";
+    in >> c.imag;
+    return in;
+}
+
+Complex operator*(float scalar, const Complex& c) {
+    return c * scalar;
+}
+
+int main() {
+    Complex c1(5,7);
+    Complex c2(-5,3);
+
+    cout << "c1 = " << c1 << endl;
+    cout << "c2 = " << c2 << endl;
+
+    Complex c3 = c1 + c2;
+    cout << "c1 + c2 = " << c3 << endl;
+
+    Complex c4 = c1 - c2;
+    cout << "c1 - c2 = " << c4 << endl;
+
+    Complex c5 = c1 * c2;
+    cout << "c1 * c2 = " << c5 << endl;
+
+    Complex c6 = c1 / c2;
+    cout << "c1 / c2 = " << c6 << endl;
+
+    Complex c7 = 2.5f * c1;
+    cout << "2.5 * c1 = " << c7 << endl;
+
+    Complex c8 = c1 / 2;
+    cout << "c1 / 2 = " << c8 << endl;
+
+    cout << "Magnitude of c1: " << c1.magnitude() << endl;
+    cout << "Conjugate of c1: " << c1.conjugate() << endl;
+
+    cout << "c1 == c2? " << (c1 == c2 ? "Yes" : "No") << endl;
+    cout << "c1 != c2? " << (c1 != c2 ? "Yes" : "No") << endl;
+
+    Complex c9;
+    cin >> c9;
+    cout << "You entered: " << c9 << endl;
+
+    return 0;
+}
