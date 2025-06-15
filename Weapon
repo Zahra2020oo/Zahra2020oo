@@ -1,0 +1,79 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+class Weapon {
+private:
+    string name;
+    int damage;
+
+public:
+    Weapon() : name("Unknown"), damage(0) {}
+
+    Weapon(string n, int d) : name(n), damage(d) {}
+
+    void input() {
+        cout << "Enter weapon name: ";
+        getline(cin, name);
+        cout << "Enter damage: ";
+        cin >> damage;
+        //cin.ignore();
+    }
+    void display() const {
+        cout << "Name: " << name << ", Damage: " << damage << endl;
+    }
+    void writeToTextFile(ofstream& out) const {
+        out << name << endl;
+        out << damage << endl;
+    }
+    bool readFromTextFile(ifstream& in) {
+        getline(in, name);
+        string line;
+        if (!getline(in, line)) return false;
+        damage = stoi(line);
+        return true;
+    }
+};
+
+void writeWeaponToFile(const Weapon& w, const string& filename) {
+    ofstream outFile(filename, ios::app);
+    if (!outFile) {
+        cerr << "Error opening file for writing!" << endl;
+        return;
+    }
+    w.writeToTextFile(outFile);
+    outFile.close();
+}
+void readWeaponsFromFile(const string& filename) {
+    ifstream inFile(filename);
+    if (!inFile) {
+        cerr << "Error opening file for reading!" << endl;
+        return;
+    }
+    Weapon w;
+    cout << "--- All weapons in file ---" << endl;
+    while (w.readFromTextFile(inFile)) {
+        w.display();
+    }
+    inFile.close();
+}
+
+int main() {
+    string filename = "weapon.txt";
+    Weapon w;
+    char choice;
+
+    do {
+        cout << "\n--- Add new weapon ---" << endl;
+        w.input();
+        writeWeaponToFile(w, filename);
+        cout << "Add another? (y/n): ";
+        cin >> choice;
+        cin.ignore();
+    } while (choice == 'y' || choice == 'Y');
+
+    readWeaponsFromFile(filename);
+
+    return 0;
+}
