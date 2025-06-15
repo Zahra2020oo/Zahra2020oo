@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void fisaghors(){
+    int a , b , c2;
+    cout<<"Enter the a: ";
+    cin>> a;
+
+    cout<<"Enter the b: ";
+    cin>> b;
+    c2 = (a*a) +  (b*b);
+    cout<<"c^2 it is : "<< c2<<endl;
+}
+
+void mosalas(){
+    int b , h;
+    float A;
+
+    cout<<"Enter the b: ";
+    cin>> b;
+
+    cout<<"Enter the h: ";
+    cin>> h;
+
+    A = 0.5 * b * h;
+    cout<<"The Area it is :"<< A<<endl;
+}
+
+void mostatil(){
+    int lengh , width , A;
+
+    cout<<"Enter the lengh: ";
+    cin>> lengh;
+
+    cout<<"Enter the width: ";
+    cin>> width;
+    A = lengh * width;
+    cout<<"The Area it is :"<< A<<endl;
+}
+
+int main(){
+
+    while(1){
+        cout<<"formol handase:\n";
+        cout<<" 1) fisaghors\n 2) masahat mosalas \n 3) masahat mostatil\n";
+        cout<<"please enter the number of the Menu: ";
+        int ans;
+        cin>> ans;
+
+        switch(ans)
+        {
+            case 1:
+                fisaghors();
+                break;
+            case 2:
+                mosalas();
+                break;
+            case 3:
+                mostatil();
+                break;
+            default:
+                cout<<"Invalid option. Please try again.\n";
+                break;
+        }
+
+        char answer[5];
+        cout<<"\nDo you want to try again? (yes/no): ";
+        cin>> answer;
+
+        if (answer == "no" || answer == "No" || answer == "n") {
+             break;
+
+    }
+
+ }
+    return 0;
+
+}
